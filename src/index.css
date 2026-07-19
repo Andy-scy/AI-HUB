@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;900&family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Space Grotesk", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-accent: #BEF264;
+  --color-bg-dark: #0A0A0A;
+  --color-surface-dark: #121212;
+  --color-surface-card: #181818;
+  --color-border-dim: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.18);
+  --color-text-primary: #FFFFFF;
+  --color-text-muted: #8A93A8;
+}
+
+/* Custom scrollbars and styling for brutalist retro terminal vibe */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #BEF264;
+}
+
+/* Highlight text selection */
+::selection {
+  background-color: #BEF264;
+  color: #0A0A0A;
+}

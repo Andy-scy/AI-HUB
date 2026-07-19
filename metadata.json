@@ -1,0 +1,6 @@
+{
+  "name": "AI 枢纽",
+  "description": "一页收纳常用大模型入口，国内、全球两个频道随手切换，运用 Bold Typography 极简硬朗美学设计。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
