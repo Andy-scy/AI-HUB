@@ -410,231 +410,89 @@ export default function App() {
                   layout
                   className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
                 >
-                  {(() => {
-                    const gridItems: React.ReactNode[] = [];
-                    
-                    filteredModels.forEach((model, idx) => {
-                      // Insert Ad Slot 1 at the 3rd index (0-indexed idx === 2)
-                      if (idx === 2) {
-                        gridItems.push(
-                          <motion.div
-                            layout
-                            key="ad-slot-1"
-                            initial={{ opacity: 0, y: 15 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
-                            transition={{ duration: 0.3 }}
-                            className="bg-[#0f110a] border-2 border-dashed border-accent hover:border-solid rounded-md p-5 flex flex-col justify-between transition-all duration-300 relative overflow-hidden min-h-[220px] shadow-[0_0_15px_rgba(190,242,100,0.05)] hover:shadow-[0_0_20px_rgba(190,242,100,0.12)] group"
-                          >
-                            <div className="absolute -bottom-6 -right-3 text-8xl font-black font-mono tracking-tighter text-accent/[0.04] select-none pointer-events-none group-hover:text-accent/[0.06] transition-all duration-300">
-                              ADS
-                            </div>
-                            <div>
-                              <div className="flex items-start justify-between gap-4 mb-3">
-                                <span className="text-[10px] font-bold font-mono px-2 py-1.5 bg-accent/15 border border-accent/35 text-accent rounded uppercase">
-                                  广告赞助 / SPONSOR AD
-                                </span>
-                                <div className="text-[10px] font-mono text-text-muted">
-                                  ADSENSE COMPATIBLE
-                                </div>
-                              </div>
-                              <div className="text-base font-black text-accent leading-snug flex items-center gap-1.5 mt-2">
-                                广告展示位 / Google Ads Placeholder
-                              </div>
-                              <div className="flex flex-col gap-1.5 mt-3 border-t border-white/5 pt-3">
-                                <p className="text-xs text-text-primary font-medium leading-relaxed">
-                                  极简高点击率自适应广告单元，精准匹配开发者和 AI 探索受众。
-                                </p>
-                                <p className="text-[10.5px] text-text-muted leading-relaxed font-mono uppercase tracking-tight">
-                                  High-CTR display unit. Fully optimized for developer and tech audiences.
-                                </p>
-                              </div>
-                            </div>
-                            <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[10px] font-mono">
-                              <span className="text-text-muted">ID: AD-SLOT-01</span>
-                              <span className="text-accent group-hover:underline cursor-pointer font-bold">
-                                广告招商咨询 / CONTACT →
-                              </span>
-                            </div>
-                          </motion.div>
-                        );
-                      }
-                      
-                      // Insert Ad Slot 2 at the 7th index (0-indexed idx === 6)
-                      if (idx === 6) {
-                        gridItems.push(
-                          <motion.div
-                            layout
-                            key="ad-slot-2"
-                            initial={{ opacity: 0, y: 15 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
-                            transition={{ duration: 0.3 }}
-                            className="bg-[#0c101b] border-2 border-dashed border-blue-400/50 hover:border-solid rounded-md p-5 flex flex-col justify-between transition-all duration-300 relative overflow-hidden min-h-[220px] shadow-[0_0_15px_rgba(96,165,250,0.05)] hover:shadow-[0_0_20px_rgba(96,165,250,0.12)] group"
-                          >
-                            <div className="absolute -bottom-6 -right-3 text-8xl font-black font-mono tracking-tighter text-blue-400/[0.04] select-none pointer-events-none group-hover:text-blue-400/[0.06] transition-all duration-300">
-                              ADS
-                            </div>
-                            <div>
-                              <div className="flex items-start justify-between gap-4 mb-3">
-                                <span className="text-[10px] font-bold font-mono px-2 py-1.5 bg-blue-400/15 border border-blue-400/35 text-blue-400 rounded uppercase">
-                                  谷歌广告位 / GOOGLE ADS
-                                </span>
-                                <div className="text-[10px] font-mono text-text-muted">
-                                  AUTO RESPONSIVE SIZE
-                                </div>
-                              </div>
-                              <div className="text-base font-black text-blue-400 leading-snug flex items-center gap-1.5 mt-2">
-                                流量变现位 / Monetization Space
-                              </div>
-                              <div className="flex flex-col gap-1.5 mt-3 border-t border-white/5 pt-3">
-                                <p className="text-xs text-text-primary font-medium leading-relaxed">
-                                  已适配谷歌广告标准组件。后续直接填入 AdSense 发布的广告代码槽即可获利。
-                                </p>
-                                <p className="text-[10.5px] text-text-muted leading-relaxed font-mono uppercase tracking-tight">
-                                  Configured container ready for custom Google AdSense HTML snippet insertion.
-                                </p>
-                              </div>
-                            </div>
-                            <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[10px] font-mono">
-                              <span className="text-text-muted">ID: AD-SLOT-02</span>
-                              <span className="text-blue-400 group-hover:underline cursor-pointer font-bold">
-                                商务合作 / INQUIRE →
-                              </span>
-                            </div>
-                          </motion.div>
-                        );
-                      }
+                  {filteredModels.map((model, idx) => {
+                    const modelTags = getTagsForModel(model);
+                    return (
+                      <motion.a
+                        layout
+                        key={model.name}
+                        href={model.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.3, delay: Math.min(idx * 0.04, 0.4) }}
+                        className="group bg-[#111111] hover:bg-[#151515] border border-white/10 hover:border-accent rounded-md p-5 flex flex-col justify-between transition-all duration-300 relative overflow-hidden min-h-[220px] cursor-pointer shadow-md"
+                        style={{
+                          // Define CSS custom properties inside style
+                          ['--card-accent' as any]: model.color,
+                        }}
+                      >
+                        {/* Background massive monogram watermark */}
+                        <div className="absolute -bottom-6 -right-3 text-8xl font-black font-mono tracking-tighter text-white/[0.02] group-hover:text-accent/[0.03] select-none pointer-events-none transition-all duration-300">
+                          {model.mono}
+                        </div>
 
-                      const modelTags = getTagsForModel(model);
-                      gridItems.push(
-                        <motion.a
-                          layout
-                          key={model.name}
-                          href={model.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          initial={{ opacity: 0, y: 15 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, scale: 0.95 }}
-                          transition={{ duration: 0.3, delay: Math.min(idx * 0.04, 0.4) }}
-                          className="group bg-[#111111] hover:bg-[#151515] border border-white/10 hover:border-accent rounded-md p-5 flex flex-col justify-between transition-all duration-300 relative overflow-hidden min-h-[220px] cursor-pointer shadow-md"
-                          style={{
-                            ['--card-accent' as any]: model.color,
-                          }}
-                        >
-                          {/* Background massive monogram watermark */}
-                          <div className="absolute -bottom-6 -right-3 text-8xl font-black font-mono tracking-tighter text-white/[0.02] group-hover:text-accent/[0.03] select-none pointer-events-none transition-all duration-300">
-                            {model.mono}
-                          </div>
-
-                          {/* Card Top Block */}
-                          <div>
-                            <div className="flex items-start justify-between gap-4 mb-3">
-                              <span 
-                                className="text-[11px] font-bold font-mono px-2.5 py-1.5 rounded"
-                                style={{ 
-                                  backgroundColor: hexToRgba(model.color, 0.12),
-                                  border: `1px solid ${hexToRgba(model.color, 0.35)}`,
-                                  color: model.color 
-                                }}
-                              >
-                                {model.mono}
-                              </span>
-                              
-                              <div className="flex items-center gap-1.5 text-text-muted group-hover:text-accent transition-colors">
-                                <span className="text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-wider">
-                                  安全直达 / REDIRECT
-                                </span>
-                                <ArrowUpRight className="w-4 h-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                              </div>
-                            </div>
-
-                            <div className="text-base font-black text-white group-hover:text-accent transition-colors leading-snug flex items-center gap-2 flex-wrap">
-                              {model.name}
-                              <span className="text-xs font-semibold text-text-muted">（{model.org}）</span>
-                            </div>
-
-                            {/* Dual language stacked descriptions */}
-                            <div className="flex flex-col gap-1.5 mt-3.5 border-t border-white/5 pt-3">
-                              <p className="text-xs text-text-primary font-medium leading-relaxed">
-                                {model.descCn}
-                              </p>
-                              <p className="text-[10.5px] text-text-muted leading-relaxed font-mono uppercase tracking-tight">
-                                {model.descEn}
-                              </p>
-                            </div>
-                          </div>
-
-                          {/* Card Bottom Meta */}
-                          <div className="mt-4 pt-3 border-t border-white/5 flex flex-wrap gap-1">
-                            {modelTags.length > 0 ? (
-                              modelTags.map(tag => (
-                                <span 
-                                  key={tag} 
-                                  className="text-[9px] font-mono text-white/50 bg-white/5 px-2 py-0.5 rounded border border-white/5 hover:border-white/20 transition-all"
-                                >
-                                  {tag.split(' / ')[0]}
-                                </span>
-                              ))
-                            ) : (
-                              <span className="text-[9px] font-mono text-text-muted uppercase">
-                                默认通道 / NAV NODE
-                              </span>
-                            )}
-                          </div>
-                        </motion.a>
-                      );
-                    });
-
-                    // If filteredModels is shorter than 3 items, append at least one ad card so they can always preview it
-                    if (filteredModels.length > 0 && filteredModels.length < 3) {
-                      gridItems.push(
-                        <motion.div
-                          layout
-                          key="ad-slot-fallback"
-                          initial={{ opacity: 0, y: 15 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, scale: 0.95 }}
-                          transition={{ duration: 0.3 }}
-                          className="bg-[#0f110a] border-2 border-dashed border-accent hover:border-solid rounded-md p-5 flex flex-col justify-between transition-all duration-300 relative overflow-hidden min-h-[220px] shadow-[0_0_15px_rgba(190,242,100,0.05)] hover:shadow-[0_0_20px_rgba(190,242,100,0.12)] group"
-                        >
-                          <div className="absolute -bottom-6 -right-3 text-8xl font-black font-mono tracking-tighter text-accent/[0.04] select-none pointer-events-none group-hover:text-accent/[0.06] transition-all duration-300">
-                            ADS
-                          </div>
-                          <div>
-                            <div className="flex items-start justify-between gap-4 mb-3">
-                              <span className="text-[10px] font-bold font-mono px-2 py-1.5 bg-accent/15 border border-accent/35 text-accent rounded uppercase">
-                                广告赞助 / SPONSOR AD
-                              </span>
-                              <div className="text-[10px] font-mono text-text-muted">
-                                ADSENSE COMPATIBLE
-                              </div>
-                            </div>
-                            <div className="text-base font-black text-accent leading-snug flex items-center gap-1.5 mt-2">
-                              广告展示位 / Google Ads Placeholder
-                            </div>
-                            <div className="flex flex-col gap-1.5 mt-3 border-t border-white/5 pt-3">
-                              <p className="text-xs text-text-primary font-medium leading-relaxed">
-                                极简高点击率自适应广告单元，精准匹配开发者和 AI 探索受众。
-                              </p>
-                              <p className="text-[10.5px] text-text-muted leading-relaxed font-mono uppercase tracking-tight">
-                                High-CTR display unit. Fully optimized for developer and tech audiences.
-                              </p>
-                            </div>
-                          </div>
-                          <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[10px] font-mono">
-                            <span className="text-text-muted">ID: AD-SLOT-01</span>
-                            <span className="text-accent group-hover:underline cursor-pointer font-bold">
-                              广告招商咨询 / CONTACT →
+                        {/* Card Top Block */}
+                        <div>
+                          <div className="flex items-start justify-between gap-4 mb-3">
+                            <span 
+                              className="text-[11px] font-bold font-mono px-2.5 py-1.5 rounded"
+                              style={{ 
+                                backgroundColor: hexToRgba(model.color, 0.12),
+                                border: `1px solid ${hexToRgba(model.color, 0.35)}`,
+                                color: model.color 
+                              }}
+                            >
+                              {model.mono}
                             </span>
+                            
+                            <div className="flex items-center gap-1.5 text-text-muted group-hover:text-accent transition-colors">
+                              <span className="text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-wider">
+                                安全直达 / REDIRECT
+                              </span>
+                              <ArrowUpRight className="w-4 h-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                            </div>
                           </div>
-                        </motion.div>
-                      );
-                    }
 
-                    return gridItems;
-                  })()}
+                          <div className="text-base font-black text-white group-hover:text-accent transition-colors leading-snug flex items-center gap-2 flex-wrap">
+                            {model.name}
+                            <span className="text-xs font-semibold text-text-muted">（{model.org}）</span>
+                          </div>
+
+                          {/* Dual language stacked descriptions */}
+                          <div className="flex flex-col gap-1.5 mt-3.5 border-t border-white/5 pt-3">
+                            <p className="text-xs text-text-primary font-medium leading-relaxed">
+                              {model.descCn}
+                            </p>
+                            <p className="text-[10.5px] text-text-muted leading-relaxed font-mono uppercase tracking-tight">
+                              {model.descEn}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Card Bottom Meta */}
+                        <div className="mt-4 pt-3 border-t border-white/5 flex flex-wrap gap-1">
+                          {modelTags.length > 0 ? (
+                            modelTags.map(tag => (
+                              <span 
+                                key={tag} 
+                                className="text-[9px] font-mono text-white/50 bg-white/5 px-2 py-0.5 rounded border border-white/5 hover:border-white/20 transition-all"
+                              >
+                                {tag.split(' / ')[0]}
+                              </span>
+                            ))
+                          ) : (
+                            <span className="text-[9px] font-mono text-text-muted uppercase">
+                              默认通道 / NAV NODE
+                            </span>
+                          )}
+                        </div>
+
+                      </motion.a>
+                    );
+                  })}
                 </motion.div>
               )}
             </AnimatePresence>
